@@ -1,0 +1,24 @@
+<script>console.log("Yes , Cart-Drawer Theme Extension is Running");</script>
+{%- render 'snippet-gf-discount-code' action:"embedd" -%}
+ {% schema %} 
+ { 
+   "name": "tr_app",
+   "target": "body",
+   "stylesheet": "tr_style.css",
+   "javascript":"tr_ajax.js",
+   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "To Enter Voucher Code Click below "
+    },
+     {
+      "type": "text",
+      "id": "buttonText",
+      "label": "Button Title",
+      "default": "Apply Gift Card or Discount Code"
+    }
+   ]
+ }
+  {% endschema %}
