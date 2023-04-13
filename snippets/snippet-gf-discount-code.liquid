@@ -1,0 +1,167 @@
+<div class="titleBlock">
+  
+</div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+<script type="text/javascript">
+  var onloadCallback = function () {
+    grecaptcha.render('divRecaptcha', {
+      sitekey: "6LemhPwkAAAAACJC7tlPpN_otkBgmkYXDh_IqjSj",
+      // callback:
+      callback: successCallback
+    })
+  };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
+</script>
+<script>
+  function successCallback(token) {
+    return new Promise(function (resolve, reject) {
+
+      document.getElementById("reCaptcha_token").value = token;
+     
+      if(token) 
+      {
+        $(document).find("#pin_btn").prop('disabled', false);
+        $(document).find("#pin_btn").css('cursor','pointer');
+        console.log("yes token found");
+      }
+      
+      // validateRecaptcha();
+      // let reCaptcha_token = token;
+      // if (grecaptcha === undefined) {
+      //   alert('Recaptcha non definito');
+      //   //return;
+      //   reject();
+      // }
+      // if (reCaptcha_token != '' && typeof (reCaptcha_token) != "undefined") {
+        // var reCaptcha_obj = {
+        //   tokens: reCaptcha_token,
+        // }
+        // console.log("object cap",reCaptcha_obj);
+        // $.ajax({
+        //   url: 'https://appsworld.website/appdemo/myapi/vouchercaptcha.php',
+        //   type: 'POST',
+        //   header: {
+        //     "Content-Type": "application/json"
+        //   },
+        //   data: JSON.stringify(reCaptcha_obj),
+        //   success: function (response) {
+        //     if(response.success == true)
+        //     {
+        //       $("#divRecaptcha").hide();
+        //       $("#popup").find(".popup-head h4").text("Apply Discount Code");
+        //       $("form.pin-form .form-inline").show();
+        //       $("#Vcode").val('');
+        //         $("#pin_btn").show();
+        //         grecaptcha.reset();
+        //         document.getElementById("reCaptcha_token").value='';
+        //         grecaptcha.reset();
+        //     }
+        //     resolve();
+        //     // let response_recaptcha = JSON.parse(response);
+        //     // console.log("response_captcha", response_recaptcha);
+           
+        //   },
+        //   error: function (xhr, resp, text) {
+        //     console.log(xhr, resp, text);
+        //     reject();
+        //   }
+        // })
+      // } else {
+      //   alert("Please filled ReCaptcha!");
+      //   reject();
+      // }
+
+
+    });
+  }
+</script>
+<div class="wrapper">
+  {% if action=="embedd" %}
+      <span id="target_span" style="display: none;">
+    {% endif %}
+      <div id="voucher_form" class="voucher_code">
+
+        <!--             <input type="text" name="voucher_name" class="voucher_class" placeholder="Enter Your Voucher">
+          <p class="waring">Voucher Code<span style="color:#000"><i class="fa fa-info-circle" aria-hidden="true"></i></span></p> -->
+        <div class="f-right">
+          <div id="div_msg_cancel"></div>
+          <label>{{ block.settings.title }} </label><br>
+          <!-- <div>
+            <div class="icon_btn">
+                <img src="assets/client_logo.png" height="50" width="50"/>
+            </div>
+          </div> -->
+          <input id="voucher_submit" type="submit" value="{{ block.settings.buttonText }}">
+        </div>
+      </div>
+    {% if action=="embedd" %}
+      </span>
+    {% endif %}
+  <div id="popup">
+    <div class="popup_wrap">
+      <div class="popup-head">
+        <h4>Apply Gift Card or Discount Code</h4>
+        <p class="waring"></p>
+      </div>
+      <div class="loader"></div>
+      <form class="pin-form">
+        <div class="form-inline">
+          <div class="form-control">
+            <!--                 <label for="fname">Voucher Code </label><br> -->
+            <input type="text" id="Vcode" name="" value="" placeholder="Enter Voucher Code" required>
+          </div>
+          <div class="form-control" id="pinss" style="display:none">
+            <!--                 <label for="lname">Pin</label><br> -->
+            <input type="text" id="pin" name="" display="false" value="" placeholder="Enter PIN" required>
+          </div>
+        </div>
+        <div id="divRecaptcha" class="g-recaptcha" style="display: none;"></div>
+        <input type="hidden" id="reCaptcha_token" name="token">
+        <!-- <p class="waring"></p> -->
+          <!--                <span style="color:#000"><i class="fa fa-info-circle" aria-hidden="true"></i></span> -->
+        
+        <div class="ms-3 mt-3">
+          <input type="button" id="pin_btn" value="Add" class="btn_yellow2">
+        </div>
+
+      </form>
+      <div style="display:none" class="table mt-3">
+        <table>
+          <thead>
+          <tr>
+            <th id="sno">Sr.No.</th>
+            <th>Voucher Code</th>
+            <th id="amount_field">Voucher Value (INR)</th>
+            <th id="redem_th" style="display:none">Voucher Value Applied (INR)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="mytable">
+
+        </tbody>
+        <tfoot id="tfooter"></tfoot>
+          
+        </table>
+      </div>
+      <div class="close">
+        &#10005;
+      </div>
+      <div class="popup-footer">
+        <button class="aplyall">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+  document.addEventListener('DOMContentLoaded', function() { // work as jquery ready function
+    $(document).on('DOMSubtreeModified', function() {   // it trigger when dom 's subtree element modify
+      if(!$("#CartDrawer").find(".voucher_code").length){  // it will run when voucher_code element not found
+        $(".drawer__footer").before($("#target_span").html());
+      }
+      
+    })
+  })
+</script>
